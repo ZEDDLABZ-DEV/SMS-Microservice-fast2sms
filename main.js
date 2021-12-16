@@ -9,16 +9,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const _sendMessage = async (message, numbers) => {
-  const nums = numbers.join(",");
+const sendMessage = async (message, numbers) => {
+  const nums = numbers.map(phone => phone.startsWith("+91") ? phone.slice(3) : phone).join(",");
   const url = "https://www.fast2sms.com/dev/bulkV2";
   try {
     const response = await axios.post(
       url,
       {
         numbers: nums,
-        senderId: "AAMDHA",
-        route: "p",
         message,
       },
       {
@@ -28,25 +26,16 @@ const _sendMessage = async (message, numbers) => {
         },
       }
     );
-    return response?.data;
+    return response.data;
   } catch (error) {
-    return error.response?.data;
+    return error.response.data;
   }
-};
-
-const sendMessage = async (msg, phone) => {
-  return _sendMessage(msg, [
-    phone.startsWith("+91") ? phone.slice(3) : phone,
-  ]).then((_res) => {
-    return;
-  });
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
   const numbers = req.body.numbers;
-  for (const phone of numbers) {
-    sendMessage(req.body.message, phone);
-  }
+  sendMessage(req.body.message, phone);
+  
   res.json({
     message: "Message sent to all numbers",
   });
