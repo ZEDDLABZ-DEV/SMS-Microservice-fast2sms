@@ -17,13 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 const sendMessage = async (message, numbers) => {
   const nums = numbers.map(phone => phone.startsWith("+91") ? phone.slice(3) : phone.startsWith("0") ? phone.slice(1): phone).join(",");
   const url = "https://www.fast2sms.com/dev/bulkV2";
+  console.log(message);
   try {
     const response = await axios.post(
       url,
       {
         numbers: nums,
-        message,
-        sender_id : "Cghpet",
+        message
       },
       {
         headers: {
