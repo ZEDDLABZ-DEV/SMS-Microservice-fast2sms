@@ -16,9 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 
 const sendMessage = async (message, numbers) => {
   return axios.get(
-    `https://www.fast2sms.com/dev/bulkV2?authorization=${
-      process.env.SMS_KEY
-    }&sender_id=TXTIND&message=${message}&route=v3&numbers=${numbers
+    `https://www.fast2sms.com/dev/bulkV2
+    
+    
+    params: {
+      authorization: process.env.SMS_KEY,
+      sender_id=TXTIND,
+      numbers: numbers
       .map((phone) =>
         phone.startsWith("+91")
           ? phone.slice(3)
@@ -26,7 +30,12 @@ const sendMessage = async (message, numbers) => {
           ? phone.slice(1)
           : phone
       )
-      .join(",")}`
+      .join(",")}`,
+      route: 'v3'
+      message: message    
+     
+    }
+  }
   );
   // return fast2sms.sendMessage({
   //   authorization: process.env.SMS_KEY,
