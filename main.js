@@ -38,11 +38,8 @@ const sendMessage = async (message, numbers) => {
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
-  console.log(req.body);
-  sendMessage(req.body.message, req.body.numbers);
-  
-  res.json({
-    message: "Message sent to all numbers",
+  sendMessage(req.body.message, req.body.numbers).then((response) => {
+    return res.send(response)
   });
 });
 
