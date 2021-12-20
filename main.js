@@ -23,7 +23,7 @@ const sendMessage = async (message, numbers) => {
       url,
       {
         numbers: nums,
-        message
+        message: "message"
       },
       {
         headers: {
