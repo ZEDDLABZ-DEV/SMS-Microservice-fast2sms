@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const sendMessage = async (message, numbers) => {
   return fast2sms.sendMessage({
     authorization: process.env.SMS_KEY,
+    language: 'unicode',
     message,
     numbers: numbers.map((phone) =>
       phone.startsWith("+91")
