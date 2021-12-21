@@ -38,7 +38,7 @@ app.post("/api/send-bulk-sms", (req, res) => {
       return res.send(response.data);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.data);
       return res.sendStatus(400);
     });
 });
