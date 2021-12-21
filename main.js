@@ -28,6 +28,7 @@ const sendMessage = async (message, numbers) => {
         .join(","),
       route: "v3",
       message,
+      language: "unicode",
     },
   });
 };
@@ -38,8 +39,8 @@ app.post("/api/send-bulk-sms", (req, res) => {
       return res.send(response.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
-      return res.sendStatus(400);
+      console.log(err.response);
+      return res.status(400).send(err.response.data);
     });
 });
 
