@@ -31,9 +31,8 @@ const sendMessage = async (message, numbers) => {
             : phone
         )
         .join(","),
-      route: "v3",
+      route: "q",
       message,
-      language: "unicode",
     },
   });
 };
