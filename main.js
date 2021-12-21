@@ -1,9 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require("axios");
-const fast2sms = require("fast-two-sms");
 
 const app = express();
 
@@ -15,39 +13,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const sendMessage = async (message, numbers) => {
-  return axios.get(
-    `https://www.fast2sms.com/dev/bulkV2
-    
-    
+  return axios.get("https://www.fast2sms.com/dev/bulkV2", {
     params: {
       authorization: process.env.SMS_KEY,
-      sender_id=TXTIND,
+      sender_id: "TXTIND",
       numbers: numbers
-      .map((phone) =>
-        phone.startsWith("+91")
-          ? phone.slice(3)
-          : phone.startsWith("0")
-          ? phone.slice(1)
-          : phone
-      )
-      .join(",")}`,
-      route: 'v3'
-      message: message    
-     
-    }
-  }
-  );
-  // return fast2sms.sendMessage({
-  //   authorization: process.env.SMS_KEY,
-  //   message,
-  //   numbers: numbers.map((phone) =>
-  //     phone.startsWith("+91")
-  //       ? phone.slice(3)
-  //       : phone.startsWith("0")
-  //       ? phone.slice(1)
-  //       : phone
-  //   ),
-  // });
+        .map((phone) =>
+          phone.startsWith("+91")
+            ? phone.slice(3)
+            : phone.startsWith("0")
+            ? phone.slice(1)
+            : phone
+        )
+        .join(","),
+    },
+    route: "v3",
+    message,
+  });
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
