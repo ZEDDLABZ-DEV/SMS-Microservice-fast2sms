@@ -33,6 +33,7 @@ const sendMessage = async (message, numbers) => {
         .join(","),
       route: "v3",
       message,
+      language: "unicode",
     },
   });
 };
