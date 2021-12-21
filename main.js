@@ -34,11 +34,13 @@ const sendMessage = async (message, numbers) => {
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
+  console.log(req.body.message);
   sendMessage(req.body.message, req.body.numbers)
     .then((response) => {
       return res.send(response.data);
     })
     .catch((err) => {
+      console.log(err.request);
       console.log(err.response);
       return res.status(400).send(err.response.data);
     });
