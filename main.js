@@ -39,7 +39,7 @@ const sendMessage = async (message, numbers) => {
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
-  sendMessage(req.body.message.encode("utf-8"), req.body.numbers)
+  sendMessage(encodeURI(req.body.message), req.body.numbers)
     .then((response) => {
       return res.send(response.data);
     })
