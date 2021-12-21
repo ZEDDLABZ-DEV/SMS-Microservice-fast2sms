@@ -33,9 +33,14 @@ const sendMessage = async (message, numbers) => {
 };
 
 app.post("/api/send-bulk-sms", (req, res) => {
-  sendMessage(req.body.message, req.body.numbers).then((response) => {
-    return res.send(response.data);
-  });
+  sendMessage(req.body.message, req.body.numbers)
+    .then((response) => {
+      return res.send(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.sendStatus(400);
+    });
 });
 
 // set port, listen for requests
