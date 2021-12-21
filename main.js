@@ -26,9 +26,9 @@ const sendMessage = async (message, numbers) => {
             : phone
         )
         .join(","),
+      route: "v3",
+      message,
     },
-    route: "v3",
-    message,
   });
 };
 
