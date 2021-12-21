@@ -14,8 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const sendMessage = async (message, numbers) => {
   return axios.get("https://www.fast2sms.com/dev/bulkV2", {
-    params: {
+    headers: {
       authorization: process.env.SMS_KEY,
+      "Content-Type": "application/json",
+    },
+    data: {
       sender_id: "TXTIND",
       numbers: numbers
         .map((phone) =>
