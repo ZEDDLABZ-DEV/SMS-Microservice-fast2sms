@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const sendMessage = async (message, numbers) => {
-  return axios.get("https://www.fast2sms.com/dev/bulkV2", {
+  return axios.post("https://www.fast2sms.com/dev/bulkV2", {
     headers: {
       authorization: process.env.SMS_KEY,
       "Content-Type": "application/json",
