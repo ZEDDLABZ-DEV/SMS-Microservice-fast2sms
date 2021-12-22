@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -43,6 +44,7 @@ app.post("/api/send-bulk-sms", (req, res) => {
       return res.send(response.data);
     })
     .catch((err) => {
+      console.log(err)
       return res.status(400).send(err.response.data);
     });
 });
